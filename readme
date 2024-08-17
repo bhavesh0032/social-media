@@ -1,0 +1,37 @@
+# API Documentation
+
+## Authentication
+
+###Register a new user
+
+POST /api/auth/register
+Request body: { "username": "string", "password": "string" }
+
+### Login
+POST /api/auth/login
+Request body: { "username": "string", "password": "string" }
+Response: { "token": "string" }
+
+## Comments
+
+### Create a new comment
+POST /api/posts/:postId/comments
+Headers: Authorization: Bearer <token>
+Request body: { "text": "string" }
+
+### Reply to an existing comment
+POST /api/posts/:postId/comments/:commentId/reply
+Headers: Authorization: Bearer <token>
+Request body: { "text": "string" }
+
+### Get comments for a post
+GET /api/posts/:postId/comments
+Query parameters:
+  - sortBy: string (optional, default: "createdAt")
+  - sortOrder: "asc" | "desc" (optional, default: "desc")
+
+### Expand parent-level comments
+GET /api/posts/:postId/comments/:commentId/expand
+Query parameters:
+  - page: number (optional, default: 1)
+  - pageSize: number (optional, default: 10)
